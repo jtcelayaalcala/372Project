@@ -23,10 +23,10 @@ pointstst = []
 i = 1
 k = 3
 
+groups = [pointsg1,pointsg2,pointstst]
+
 for line in lines
   point = split(line, ',')
-
-  groups = [pointsg1,pointsg2,pointstst]
 
   if length(point) < 2
     i += 1
