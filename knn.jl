@@ -1,91 +1,118 @@
+#= Name:        dist
+ =
+ = Purpose:    Calculates the distance between two two-tuples using the two
+ =              norm
+ =
+ = Parameters:  A- the first tuple
+ =              B - the second tuple
+ =
+ = Returns:    The distance between points A and B
+ =#
 function dist(A,B)
-
   return ((A[1]-B[1])^2 + (A[2]-B[2])^2)^(0.5)
 end
 
+#= Name:        minIndex
+ =
+ = Purpose:   Finds the index of the minimum value in a list by finding keep
+ =            track of the index of the smallest encountered while iterating
+ =            through the list
+ =
+ = Parameters:  A- the list we want the index of the minimum element of
+ =
+ = Returns:     An integer that is the index of the min value of a. If this
+ =              minimum value occurs more than once, the smallest index is
+ =              returned.
+ =#
 function minIndex(A)
+  # Assume the first element is the smallest
   min = 1
   for i = 1:length(A)
+    # If you find a smaller number, keep track of the index
     if A[i] < A[min]
       min = i
     end
   end
-  return i
+  return min
 end
 
+# Read in the points from the file points.txt
 f = open("points.txt")
 lines = readlines(f)
 
-pointsg1 = []
-pointsg2 = []
-pointstst = []
+# Keep track of the first group of points--(x,y) where x < y, the second
+# group of points--(x,y) where y > x, and the test points
+pointGroupOne = []
+pointGroupTwo = []
+testGroup = []
 
-i = 1
-k = 3
-
-groups = [pointsg1,pointsg2,pointstst]
-
+# Store the points in arrays
+groupNumber = 1
+groups = [pointGroupOne,pointGroupTwo,testGroup]
 for line in lines
+# Split about commas
   point = split(line, ',')
 
+  # The delimiter for the groups is "#######", which will have length < 2 when
+  # split about commas. This is then a condition for reaching the group
+  # delimiter
   if length(point) < 2
-    i += 1
+    # Move on to the next group
+    groupNumber += 1
     continue
   end
 
-  push!(groups[i],(parse(Int64,point[1]),parse(Int64,point[2])))
+  # Add the point read to the corresponding group. Parse converts the string
+  # containing the number to the corresponding number
+  push!(groups[groupNumber],(parse(Int64,point[1]),parse(Int64,point[2])))
 end
 
 kNN = Dict()
-allNonTestPoints = vcat(pointsg1,pointsg2)
+allNonTestPoints = vcat(pointGroupOne,pointGroupTwo)
 
-for point in pointstst
+for point in testGroup
   kNN[point] = sort([(dist(allNonTestPoints[i],point),allNonTestPoints[i]) for i in 1:length(allNonTestPoints)])
 end
 
-classifiedg1 = []
-classifiedg2 = []
+classifiedGroupOne = []
+classifiedGroupTwo = []
 
 for point = keys(kNN)
-  #println(kNN[point])
+
   g1 = 0
   g2 = 0
 
   for p in kNN[point][1:3]
     #println(p[2])
-    if p[2] in pointsg1
+    if p[2] in pointGroupOne
       g1 += 1
-    elseif p[2] in pointsg2
+    elseif p[2] in pointGroupTwo
       g2 += 1
     end
   end
 
-  println(g1)
-  println(g2)
-
   if g1 > g2
-    push!(classifiedg1,point)
+    push!(classifiedGroupOne,point)
   else
-    push!(classifiedg2,point)
+    push!(classifiedGroupTwo,point)
   end
 end
-
 using PyPlot
 
 #################
 #  Create Data  #
 #################
-x_1 = [x[1] for x in pointsg1]
-y_1 = [x[2] for x in pointsg1]
+x_1 = [x[1] for x in pointGroupOne]
+y_1 = [x[2] for x in pointGroupOne]
 
-x_2 = [x[1] for x in pointsg2]
-y_2 = [x[2] for x in pointsg2]
+x_2 = [x[1] for x in pointGroupTwo]
+y_2 = [x[2] for x in pointGroupTwo]
 
-x_3 = [x[1] for x in classifiedg1]
-y_3 = [x[2] for x in classifiedg1]
+x_3 = [x[1] for x in classifiedGroupOne]
+y_3 = [x[2] for x in classifiedGroupOne]
 
-x_4 = [x[1] for x in classifiedg2]
-y_4 = [x[2] for x in classifiedg2]
+x_4 = [x[1] for x in classifiedGroupTwo]
+y_4 = [x[2] for x in classifiedGroupTwo]
 
 ##################
 #  Scatter Plot  #
