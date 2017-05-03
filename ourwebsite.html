@@ -16,21 +16,54 @@
 		Jeff Bezanson, Stefan Karpinski and Alan Edelman. They revealed Julia for
 		the first time on Valentine's Day 2012, making it open source and inviting
 		contributions from others. The first free version was released a year later.
-		The main allure of Julia is its speed. Here is a table from the official Julia 
-		website comparing how fast common algorithms perform when implemented in Julia 
+		The main allure of Julia is its speed. Here is a table from the official Julia
+		website comparing how fast common algorithms perform when implemented in Julia
 		compared to other popular languages.
 
 		<img src="JuliaSpeed.png" alt="Mountain View" style="width:650px;height:228px;">
 
-		Another important feature of Julia is the ease of development. Its syntax is 
-		much like Python or Ruby. Variables don't need to be declared and there are no end 
-		of line terminators. Also, C functions can be called without wrappers, and there is 
+		Another important feature of Julia is the ease of development. Its syntax is
+		much like Python or Ruby. Variables don't need to be declared and there are no end
+		of line terminators. Also, C functions can be called without wrappers, and there is
 		an ample library of math functions and libraries for data visualization. The number
 		of Julia users is currently about 250,000. Many of these users are in the area of data
 		analysis and scientific computing, where speed is indispensible.
 	</pre>
 <h1 style="font-family:verdana;">Paradigm</h1>
-<p>...</p>
+Julia exhibits several of the characterstics of the Object-Oriented Paradigm including objects,
+polymorpohism, generics. The definition and instantiation of objects in Julia is similar to
+definition and instantiation of objects in Java. Take for example Patches, a cool, Cantonese-speaking
+dog:
+
+  <img src="coolDogNoAbstract.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
+Of course, not all dogs are as cool as Patches, but we treat them as dogs anyways. In Julia, subtyping
+is not supported, but abstract types are, giving us polymorphism. Consider this more inclusive view
+of dogs:
+
+  <img src="abstractDogs.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
+Now we write functions that take any one of the Dog types. Julia also supports adhoc polymorphism
+through the use of informal interfaces. Thefollowing is an example of a type implementing the
+iterable interface:
+
+  <img src="thirdPower.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
+Note that we do not need access to the definition of Triple to use it. We only need to instantiate it;
+the innerworkings are encapsulated in the defintion. Using the fact that Triple implements interable,
+compilers can convert this code:
+
+  <img src="basicIterate.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
+into this code:
+
+  <img src="iterateUsingInterface.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
+Given the loose typing and operator overloading in Julia, we can write functions that can operate
+on multiple types. The following is an example of parametric polymorphism using the less than operator:
+
+  <img src="lessThans.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
 
 <h1 style="font-family:verdana;">Typing System</h1>
 <p>...</p>
@@ -64,9 +97,9 @@
 <h1 style="font-family:verdana;">Support for Data Abstractions</h1>
 	<h2 style="font-family:verdana;margin-left:3em">Classes</h2>
 	<pre style="font-family:verdana;">
-		Programmers can create new data abstractions in the form of user defined classes. 
-		Classes allow for the implementation of various abstract data types and are of course 
-		the basis for object orientation. In the following example, a simple "Student" class 
+		Programmers can create new data abstractions in the form of user defined classes.
+		Classes allow for the implementation of various abstract data types and are of course
+		the basis for object orientation. In the following example, a simple "Student" class
 		is defined. An instance of Student is then instantiated, and all of its info is printed out.
 
 		<img src="SampleCode1.png" alt="Mountain View" style="width:540px;height:300px;">
@@ -74,7 +107,7 @@
 
 	<h2 style="font-family:verdana;margin-left:3em">Arrays</h2>
 	<pre style="font-family:verdana;">
-		On of the most important abstractions provided by Julia is arrays. In Julia, arrays can 
+		On of the most important abstractions provided by Julia is arrays. In Julia, arrays can
 		hold any type, and many types can be held in an array at the same time. Julia provides
 		various functions to work with arrays, some examples of these functions in use follows.
 
@@ -84,16 +117,16 @@
 <h1 style="font-family:verdana;">Syntax</h1>
 	<pre style="font-family:verdana;">
 		Syntax in Julia is a mixture of the syntax of languages such as Python, Ruby, and Matlab.
-		There are no end of line terminators. Variables do not need to be declared. Unlike Python, 
-		but just like Ruby and Matlab, code blocks are enclosed by a keyword and an 'end', like 
+		There are no end of line terminators. Variables do not need to be declared. Unlike Python,
+		but just like Ruby and Matlab, code blocks are enclosed by a keyword and an 'end', like
 		in the following examples.
 
 		<img src="SampleCode3.png" alt="Mountain View" style="width:620px;height:280px;">
 
 		Some very useful features of Julia syntax include list comprehensions (like Python and Ruby),
-		and ranges (Matlab style). List comprehensions allow you to create new lists using set-like 
+		and ranges (Matlab style). List comprehensions allow you to create new lists using set-like
 		notations, and ranges allow you to create a list of numbers, such as 1 through 100. The latter
-		is used in for loops. Here is an example of a for loop iterating through a list of the number 1 
+		is used in for loops. Here is an example of a for loop iterating through a list of the number 1
 		through 20, and some list comprehensions.
 
 		<img src="SampleCode4.png" alt="Mountain View" style="width:720px;height:200px;">
@@ -107,18 +140,18 @@
 <h1 style="font-family:verdana;">Desirable Characteristics</h1>
 	<h2 style="font-family:verdana;margin-left:3em">Efficiency</h2>
 	<pre style="font-family:verdana;">
-		
+
 	</pre>
 
 	<h2 style="font-family:verdana;margin-left:3em">Regularity</h2>
 	<pre style="font-family:verdana;">
-		
+
 	</pre>
 
 	<h2 style="font-family:verdana;margin-left:3em">Security</h2>
 	<pre style="font-family:verdana;">
-		
+
 	</pre>
 
 </body>
-</html> 
+</html>
