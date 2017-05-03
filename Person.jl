@@ -86,7 +86,7 @@ end
 
 #short circuit evaluations
 if i == 10 || k < 100 #second part will not be evaluated since first is true
-  println("i < 10 or k < 100")
+  println("i < 10 and k < 100")
 end
 
 if i % 2 == 1 && k < 20 #second part not evaluated since first is false
@@ -96,8 +96,33 @@ end
 #ternary operator
 j = i < 10 ? 0 : 1 #if i < 10, j = 0, else j = 1
 
+#compuond expressions, two ways
 z = begin
     x = 1
     y = 2
     x + y
     end
+
+z = (x = 1; y = 2; x + y)
+
+function sqrt_second(x)
+  try
+    sqrt(x[2])
+  catch y
+    if isa(y, DomainError)
+        sqrt(complex(x[2], 0))
+    elseif isa(y, BoundsError)
+        sqrt(x)
+    end
+end
+
+
+
+A = [1,2] #initialize A
+B = A
+
+println(A) #result: [1,2]
+
+push!(B,3) #append 3 to B
+
+print(A) #result: [1,2,3]

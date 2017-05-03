@@ -67,36 +67,82 @@ for line in lines
   push!(groups[groupNumber],(parse(Int64,point[1]),parse(Int64,point[2])))
 end
 
-kNN = Dict()
-allNonTestPoints = vcat(pointGroupOne,pointGroupTwo)
+kNN = Dict() #dictionary used to classify points
+allNonTestPoints = vcat(pointGroupOne,pointGroupTwo) #all non test points
 
+#calculate distance of all points to test points
 for point in testGroup
   kNN[point] = sort([(dist(allNonTestPoints[i],point),allNonTestPoints[i]) for i in 1:length(allNonTestPoints)])
 end
 
-classifiedGroupOne = []
-classifiedGroupTwo = []
+classifiedGroupOne = [] #list of points classified as group one
+classifiedGroupTwo = [] #list of points classified as group two
+ties = [] #list of ties
 
 for point = keys(kNN)
 
-  g1 = 0
-  g2 = 0
+  g1 = 0 #count of how many in first three are in group 1
+  g2 = 0 #same for group 2
 
-  for p in kNN[point][1:3]
-    #println(p[2])
+  #keep track of ties
+  tie1 = 0
+  tie2 = 0
+
+  i = 0 #counter used to compute ties
+
+  prevp = () #previous point
+
+  for p in kNN[point][1:4]
+
+    #if to handle ties
+    if i == 3
+      if prevp[1] == p[1] && (prevp in pointGroupOne && p in pointGroupOne)
+        tie1 += 1
+      elseif prevp[1] == p[1] && (prevp in pointGroupTwo && p in pointGroupTwo)
+        tie2 += 1
+      end
+      continue
+    end
+
+    #used to count how many of the three closest
+    #points are in each group
     if p[2] in pointGroupOne
       g1 += 1
     elseif p[2] in pointGroupTwo
       g2 += 1
     end
+
+    i+=1
+
+    prevp = p
   end
 
-  if g1 > g2
-    push!(classifiedGroupOne,point)
+  if g1 > g2 #if initially classified as group 1
+    if g2 + tie2 == g1 #tie condition
+      push!(ties,point)
+    else
+      push!(classifiedGroupOne,point)
+    end
   else
-    push!(classifiedGroupTwo,point)
+    if g1 + tie1 == g2 #tie condition
+      push!(ties,point)
+    else
+      push!(classifiedGroupTwo,point)
+    end
   end
 end
+
+#loop to print list and classifications
+for x in testGroup
+  if x in classifiedGroupOne
+    println("group 1 : $x")
+  elseif x in classifiedGroupTwo
+    println("group 2 : $x")
+  else
+    println("tie : $x")
+  end
+end
+
 using PyPlot
 
 #################
@@ -114,6 +160,9 @@ y_3 = [x[2] for x in classifiedGroupOne]
 x_4 = [x[1] for x in classifiedGroupTwo]
 y_4 = [x[2] for x in classifiedGroupTwo]
 
+x_5 = [x[1] for x in ties]
+y_5 = [x[2] for x in ties]
+
 ##################
 #  Scatter Plot  #
 ##################
@@ -129,5 +178,6 @@ scatter(x_1,y_1,alpha=0.5,color="red")
 scatter(x_2,y_2,alpha=0.5,color="blue")
 scatter(x_3,y_3,alpha=0.5,color="red",marker="^")
 scatter(x_4,y_4,alpha=0.5,color="blue",marker="v")
+scatter(x_5,y_5,alpha=0.5,color="black")
 
 savefig("classification.png")
