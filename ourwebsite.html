@@ -54,40 +54,42 @@
 		We hope you have as much fun working with Julia as we and 250,000 others do! 
 	</pre>
 <h1 style="font-family:verdana;">Paradigm</h1>
-Julia exhibits several of the characterstics of the Object-Oriented Paradigm including objects,
-polymorpohism, generics. The definition and instantiation of objects in Julia is similar to
-definition and instantiation of objects in Java. Take for example Patches, a cool, Cantonese-speaking
-dog:
 
-  <img src="coolDogNoAbstract.png" alt="Mountain View" style=style="width:540px;height:300px;">
+	<pre style="font-family:verdana;">
+		Julia exhibits several of the characterstics of the Object-Oriented Paradigm including objects,
+		polymorpohism, generics. The definition and instantiation of objects in Julia is similar to
+		definition and instantiation of objects in Java. Take for example Patches, a cool, Cantonese-speaking
+		dog:
 
-Of course, not all dogs are as cool as Patches, but we treat them as dogs anyways. In Julia, subtyping
-is not supported, but abstract types are, giving us polymorphism. Consider this more inclusive view
-of dogs:
+		  <img src="coolDogNoAbstract.png" alt="Mountain View" style=style="width:540px;height:300px;">
 
-  <img src="abstractDogs.png" alt="Mountain View" style=style="width:540px;height:300px;">
+		Of course, not all dogs are as cool as Patches, but we treat them as dogs anyways. In Julia, subtyping
+		is not supported, but abstract types are, giving us polymorphism. Consider this more inclusive view
+		of dogs:
 
-Now we write functions that take any one of the Dog types. Julia also supports adhoc polymorphism
-through the use of informal interfaces. Thefollowing is an example of a type implementing the
-iterable interface:
+		  <img src="abstractDogs.png" alt="Mountain View" style=style="width:540px;height:300px;">
 
-  <img src="thirdPower.png" alt="Mountain View" style=style="width:540px;height:300px;">
+		Now we write functions that take any one of the Dog types. Julia also supports adhoc polymorphism
+		through the use of informal interfaces. Thefollowing is an example of a type implementing the
+		iterable interface:
 
-Note that we do not need access to the definition of Triple to use it. We only need to instantiate it;
-the innerworkings are encapsulated in the defintion. Using the fact that Triple implements interable,
-compilers can convert this code:
+		  <img src="thirdPower.png" alt="Mountain View" style=style="width:540px;height:300px;">
 
-  <img src="basicIterate.png" alt="Mountain View" style=style="width:540px;height:300px;">
+		Note that we do not need access to the definition of Triple to use it. We only need to instantiate it;
+		the innerworkings are encapsulated in the defintion. Using the fact that Triple implements interable,
+		compilers can convert this code:
 
-into this code:
+		  <img src="basicIterate.png" alt="Mountain View" style=style="width:540px;height:300px;">
 
-  <img src="iterateUsingInterface.png" alt="Mountain View" style=style="width:540px;height:300px;">
+		into this code:
 
-Given the loose typing and operator overloading in Julia, we can write functions that can operate
-on multiple types. The following is an example of parametric polymorphism using the less than operator:
+		  <img src="iterateUsingInterface.png" alt="Mountain View" style=style="width:540px;height:300px;">
 
-  <img src="lessThans.png" alt="Mountain View" style=style="width:540px;height:300px;">
+		Given the loose typing and operator overloading in Julia, we can write functions that can operate
+		on multiple types. The following is an example of parametric polymorphism using the less than operator:
 
+	  	<img src="lessThans.png" alt="Mountain View" style=style="width:540px;height:300px;">
+	</pre>
 
 <h1 style="font-family:verdana;">Typing System</h1>
 	<pre style="font-family:verdana;">
