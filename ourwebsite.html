@@ -29,29 +29,29 @@
 		of Julia users is currently about 250,000. Many of these users are in the area of data
 		analysis and scientific computing, where speed is indispensible.
 
-		These benefits of Julia were summed up in a blog post by the creators, answering the 
+		These benefits of Julia were summed up in a blog post by the creators, answering the
 		question of why they created Julia:
 
 		In short, because we are greedy.
 
 		We are power Matlab users. Some of us are Lisp hackers. Some are Pythonistas, others Rubyists
-		still others Perl hackers. ... We've generated more R plots than any sane person should. C is 
+		still others Perl hackers. ... We've generated more R plots than any sane person should. C is
 		our desert island programming language.
 
-		We love all of these languages; they are wonderful and powerful. For the work we do - scientific 
-		computing, machine learning, data mining, large-scale linear algebra, distributed and parallel 
-		computing - each one is perfect for some aspects of the work and terrible for others. Each one 
+		We love all of these languages; they are wonderful and powerful. For the work we do - scientific
+		computing, machine learning, data mining, large-scale linear algebra, distributed and parallel
+		computing - each one is perfect for some aspects of the work and terrible for others. Each one
 		is a trade-off.
 
-		We want a language that's open source, with a liberal license. We want the speed of C with the 
-		dynamism of Ruby. ... We want something as usable for general programming as Python, as easy for 
+		We want a language that's open source, with a liberal license. We want the speed of C with the
+		dynamism of Ruby. ... We want something as usable for general programming as Python, as easy for
 		statistics as R, as natural for string processing as Perl, as powerful for linear algebra as Matlab
 		... Something that is dirt simple to learn, yet keeps the most serious hackers happy. ...
 
 		(Did we mention it should be as fast as C?)
 
 		Julia's current version is 5.1, a translator can be found at:  <a href="https://julialang.org/downloads/">Julia.com</a>
-		We hope you have as much fun working with Julia as we and 250,000 others do! 
+		We hope you have as much fun working with Julia as we and 250,000 others do!
 	</pre>
 <h1 style="font-family:verdana;">Paradigm</h1>
 
@@ -94,15 +94,15 @@
 <h1 style="font-family:verdana;">Typing System</h1>
 	<pre style="font-family:verdana;">
 		According to the Julia documentation, the language is statically typed. That is, types are not checked
-		before execution but at run time, much like Python or Ruby. Julia does provide the option however, to 
-		specify that a certain object will be of a given type. This can have the benefit of generating more 
+		before execution but at run time, much like Python or Ruby. Julia does provide the option however, to
+		specify that a certain object will be of a given type. This can have the benefit of generating more
 		efficient code, since then the translator can do safety checks before runtime, and make more assumptions
 		about the behavior of the code. Since Julia is typed this way, variable declarations are not necessary.
-		A programmer does have the ability to create new types through user defined classes. An example of this 
+		A programmer does have the ability to create new types through user defined classes. An example of this
 		is given in the Abstractions section below. With respect to functions, they are treated as objects. To
-		quote the Julia documentation: "... a function is an object that maps a tuple of argument values to a 
-		return value. Julia functions are not pure mathematical functions, in the sense that functions can alter 
-		and be affected by the global state of the program." 
+		quote the Julia documentation: "... a function is an object that maps a tuple of argument values to a
+		return value. Julia functions are not pure mathematical functions, in the sense that functions can alter
+		and be affected by the global state of the program."
 
 	</pre>
 
@@ -112,21 +112,21 @@
 		Iteration in Julia is acheived by using one of the two looping constructs,
 		'while' or 'for'. A while loop, as shown below, evaluates a boolean expression,
 		and as long as that expression is true, the body of the loop will be executed.
-		A common task when looping is counting up or down, this can be done with a 
+		A common task when looping is counting up or down, this can be done with a
 		while loop, but is simplfied with the for loop syntax. In the example below,
-		k runs from 1 to 5, and the body of the loop is executed for each value of k. 
+		k runs from 1 to 5, and the body of the loop is executed for each value of k.
 
 		<img src="loops.png" alt="Mountain View" style="width:620px;height:300px;">
 	</pre>
 
 	<h2 style="font-family:verdana;margin-left:3em">If, ElseIf, Else</h2>
 	<pre style="font-family:verdana;">
-		Selection statements in Julia are similar if not identical in structure 
-		to most languages. If a certain condition is true, then the body of the 'if' 
-		will be executed. If it is false, and there is an 'elseif' paired with the 
-		original 'if' then a second condition will be evaluated, and if it is true 
+		Selection statements in Julia are similar if not identical in structure
+		to most languages. If a certain condition is true, then the body of the 'if'
+		will be executed. If it is false, and there is an 'elseif' paired with the
+		original 'if' then a second condition will be evaluated, and if it is true
 		then the body of the 'elseif' will be executed. If this is false, then there
-		may be other 'elseif' blocks or simply a default 'else' block whose body 
+		may be other 'elseif' blocks or simply a default 'else' block whose body
 		will be executed if all the preceding statements evaluated to false.
 
 		<img src="ifs.png" alt="Mountain View" style="width:620px;height:300px;">
@@ -134,17 +134,17 @@
 
 	<h2 style="font-family:verdana;margin-left:3em">Short Circuit Evaluation</h2>
 	<pre style="font-family:verdana;">
-		This behavior allows for efficient evaluations of boolean expressions chained 
-		together with 'ors' and 'ands' (|| and &amp&amp). That is, only the minimum 
-		number of predicates in an expression are evaluated to determine the truth 
+		This behavior allows for efficient evaluations of boolean expressions chained
+		together with 'ors' and 'ands' (|| and &amp&amp). That is, only the minimum
+		number of predicates in an expression are evaluated to determine the truth
 		value of the entire expression. The Julia documentations sums it up this way:
 
     		In the expression a &amp&amp b, the subexpression b is only evaluated if a evaluates to true.
     		In the expression a || b, the subexpression b is only evaluated if a evaluates to false.
 
-    		Infomally, this is because if the first part of an 'and' is false, the entire expression 
+    		Infomally, this is because if the first part of an 'and' is false, the entire expression
     		is false. Similarly, if the first part of an 'or' is true, the entire expression is true.
-    		Thus in both cases, there is no need to evaluate the second part of the expression. 
+    		Thus in both cases, there is no need to evaluate the second part of the expression.
     		The following example demonstrated this behavior.
 
 		<img src="ShortCircuit.png" alt="Mountain View" style="width:650px;height:230px;">
@@ -202,22 +202,50 @@
 	<pre style="font-family:verdana;">
 		According to the Julia homepage, Julia is lexically scoped. That is, the scope of a variable is
 		determined by where it was defined, not by a caller's scope. Garbage is managed much like in Java,
-		with a garbage collector that regularly runs. There is no 'free' command like in C. But you may 
-		replace an object that is no longer needed with an object requiring less space. One example given 
-		in the documentation is that if you have a large array that you won't use anymore, say A, you can 
-		set A = 0, and the garbage collector will free the old memory the next time it runs. You can force 
+		with a garbage collector that regularly runs. There is no 'free' command like in C. But you may
+		replace an object that is no longer needed with an object requiring less space. One example given
+		in the documentation is that if you have a large array that you won't use anymore, say A, you can
+		set A = 0, and the garbage collector will free the old memory the next time it runs. You can force
 		the garbage collector to run by calling gc().
 	</pre>
 
 <h1 style="font-family:verdana;">Desirable Characteristics</h1>
 	<h2 style="font-family:verdana;margin-left:3em">Efficiency</h2>
 	<pre style="font-family:verdana;">
+    As seen in the chart included in the History section, Julia's execution times are often much
+    faster than other langauges like Python, Matlab, and R. Even more impressive, Julia's execution
+    times are comparable to C! However, before considering execution times, one must first consider
+    the cost of creating a program to run in the first place. Let's look at hello world in assembly,
+    Java, Prolog, and Julia:
+
+    <img src="assemblyHelloWorld.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
+    <img src="javaHelloWorld.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
+    <img src="prologHelloWorld.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
+    <img src="juliaHelloWorld.png" alt="Mountain View" style=style="width:540px;height:300px;">
+
+    Moving down the hello world examples, there is more an more abstractions. Specifically,
+    we go from performing bit operations (Assembly) to printing in a confusing block structure
+    (Java) to displaying hello after a single line of confusing operators (Prolog) to finally
+    just printing hello. This simplification through abstraction is typical of Julia, making the
+    language expressive. Furthermore, the Object-oriented tendencies dispose Julia to modularity
+    and therefore ease of maintainence.
 
 	</pre>
 
 	<h2 style="font-family:verdana;margin-left:3em">Regularity</h2>
 	<pre style="font-family:verdana;">
-
+    Julia, being a medley of useful futures from many languages, has a variety of control structure
+    syntax (see control structures section). The ifs, else ifs, and elses are Ruby-style, for
+    loops are Matlab style, and while loops are C-style, making the selection statement syntax
+    inconsisent. Furthermore, being a dynamic, computational language, Julia has a large library functions
+    to support its diverse group of users. The array documentation alone is over one thousand lines
+    long, making it hard to find a specific function. For example, programmers have over twenty
+    different ways to initialize an array with some constructors names differing from other contructor
+    names by only an exclamation point. Overall, the all-inclusive attitude of Julia makes the language
+    useful at the expense of simplifity.
 	</pre>
 
 	<h2 style="font-family:verdana;margin-left:3em">Security</h2>
@@ -232,4 +260,4 @@
 	</pre>
 
 </body>
-</html> 
+</html>
