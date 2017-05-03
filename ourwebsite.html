@@ -223,12 +223,15 @@
 <h1 style="font-family:verdana;">Semantics</h1>
 	<pre style="font-family:verdana;">
 		According to the Julia homepage, Julia is lexically scoped. That is, the scope of a variable is
-		determined by where it was defined, not by a caller's scope. Garbage is managed much like in Java,
-		with a garbage collector that regularly runs. There is no 'free' command like in C. But you may
-		replace an object that is no longer needed with an object requiring less space. One example given
-		in the documentation is that if you have a large array that you won't use anymore, say A, you can
-		set A = 0, and the garbage collector will free the old memory the next time it runs. You can force
-		the garbage collector to run by calling gc().
+		determined by where it was defined, not by a caller's scope. Julia supports constants. One can 
+		declare one by prefacing an assignment by the keyword 'const'. As expected, the value of a constant 
+		cannot be changed. With respect to memory allocation, Julia behaves like most languages, it allocates 
+		variables in the main script on the heap, and variables used locally in functions on the stack. Garbage 
+		is managed much like in Java, with a garbage collector that regularly runs. There is no 'free' command 
+		like in C. But you may replace an object that is no longer needed with an object requiring less space. 
+		One example given in the documentation is that if you have a large array that you won't use anymore, 
+		say A, you can set A = 0, and the garbage collector will free the old memory the next time it runs. You 
+		can force the garbage collector to run by calling gc().
 	</pre>
 
 <h1 style="font-family:verdana;">Desirable Characteristics</h1>
