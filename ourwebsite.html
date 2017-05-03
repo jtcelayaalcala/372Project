@@ -152,11 +152,20 @@
 
 	<h2 style="font-family:verdana;margin-left:3em">Ternary Operator</h2>
 	<pre style="font-family:verdana;">
+		The syntax for the ternary operator in Julia is the same as the syntax in C. It is
+		essentially a condensation of an if-else block. As shown below, if the condition
+		before the '?' is true, then the variable, in this case j, is assigned to the value
+		before the colon, if it is false it is assigned to the other value.
+
 		<img src="ternary.png" alt="Mountain View" style="width:620px;height:70px;">
 	</pre>
 
 	<h2 style="font-family:verdana;margin-left:3em">Compound Statments</h2>
 	<pre style="font-family:verdana;">
+		Compound statements in Julia allow you to group together multiple expressions into
+		one statment that returns the value of the last expression. There are two ways to
+		do this, begin blocks and (;) chains. These are shown below in this order.
+
 		<img src="Compound.png" alt="Mountain View" style="width:620px;height:170px;">
 	</pre>
 
@@ -173,12 +182,18 @@
 
 	<h2 style="font-family:verdana;margin-left:3em">Arrays</h2>
 	<pre style="font-family:verdana;">
-		On of the most important abstractions provided by Julia is arrays. In Julia, arrays can
+		One of the most important abstractions provided by Julia is arrays. In Julia, arrays can
 		hold any type, and many types can be held in an array at the same time. Julia provides
 		various functions to work with arrays, some examples of these functions in use follows.
 
 		<img src="SampleCode2.png" alt="Mountain View" style="width:620px;height:280px;">
+
+		Note that Julia of course includes basic abstractions such as being able to declare variables,
+		having strings represent a list of characters, and includes other built in types. Also there are
+		structured abstractions such as the ability to work with data files.
 	</pre>
+
+
 
 <h1 style="font-family:verdana;">Syntax</h1>
 	<pre style="font-family:verdana;">
@@ -196,6 +211,13 @@
 		through 20, and some list comprehensions.
 
 		<img src="SampleCode4.png" alt="Mountain View" style="width:720px;height:200px;">
+
+		One of my favorite features of Python and Ruby was list comprehensions, and it is one of my
+		favorite features of Julia. I don't particularly like how ranges are handled, I much prefer
+		how they are done in Python (with range(1,6) instead of 1:5). Also, the fact that blocks are
+		ended with the keyword 'end' has pros and cons. For example in Python, blocks are determined
+		by indentation. This saves lines and forces your code to be well formatted, while the way
+		Julia does this gives you more flexibility.
 	</pre>
 
 <h1 style="font-family:verdana;">Semantics</h1>
@@ -245,11 +267,32 @@
     long, making it hard to find a specific function. For example, programmers have over twenty
     different ways to initialize an array with some constructors names differing from other contructor
     names by only an exclamation point. Overall, the all-inclusive attitude of Julia makes the language
-    useful at the expense of simplifity.
+    useful at the expense of simplicity.
 	</pre>
 
-	<h2 style="font-family:verdana;margin-left:3em">Security</h2>
+	<h2 style="font-family:verdana;margin-left:3em">Security/Reliability</h2>
 	<pre style="font-family:verdana;">
+		We defined Security to be the language's ability to resist programmer errors. Some examples of
+		features that illuminate this ability or lack thereof are typing, exception handling, and support
+		for aliasing. As we discussed above, Julia is weakly typed. So it does not do type safety checking
+		until runtime. This leaves it open to various type errors, thus it's not very secure in this respect.
+		Julia handles exceptions much like Java. Functions can throw exceptions, and there is a try-catch
+		construct. We demostrate the use of a try catch below.
+
+		<img src="trycatch.png" alt="Mountain View" style="width:720px;height:250px;">
+
+		Code that may throw an error/exception is contained in the try block, if an exception is thrown,
+		we move on to the catch block, which takes a different action depending on which kind of exception
+		is thrown. With respect to aliasing, consider the following code:
+
+		<img src="Aliasing.png" alt="Mountain View" style="width:720px;height:210px;">
+
+		We initialize the array A to be [1,2]. We then set B equal to A. This does not copy the value of A
+		to B, but rather causes B to be a reference to the same part of memory as A. So when we append 3
+		to B, we change the value of A. This is an example of having multiple names for the same value, or
+		aliasing. This may cause errors if the programmer is expecting a different behavior, so is a hole
+		in the security of Julia.
+
 
 	</pre>
 
